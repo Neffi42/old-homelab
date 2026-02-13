@@ -1,0 +1,5 @@
+.venv/
+*.env
+*.key
+.DS_Store
+kubeconfig
