@@ -100,6 +100,7 @@ issuers:
         name: ovh-auth
         #     # The key name in the secret above that holds the actual OVH OAuth 2 client IDvalue
         key: oauth-client-id
+        namespace: cert-manager
       #   # The secret reference to an existing OVH Auth 2 client secret.
 
       oauth2ClientSecretRef:
@@ -107,24 +108,28 @@ issuers:
         name: ovh-auth
         #     # The key name in the secret above that holds the actual OVH Auth 2 client secret value
         key: oauth-client-secret
+        namespace: cert-manager
         #   # The secret reference to an existing OVH application key.
       applicationKeyRef:
         #     # Name of the Kubernetes secret containing the OVH Application Key
         name: ovh-auth
         #     # The key name in the secret above that holds the actual OVH application key value
         key: application-key
+        namespace: cert-manager
         #   # The secret reference to an existing OVH application secret.
       applicationSecretRef:
         #     # Name of the Kubernetes secret containing the OVH Application Secret
         name: ovh-auth
         #     # The key name in the secret above that holds the actual OVH application secret value
         key: application-secret
+        namespace: cert-manager
       #   # The secret reference to an existing OVH consumer key
       applicationConsumerKeyRef:
         #     # Name of the Kubernetes secret containing the OVH consumer Key
         name: ovh-auth
         #     # The key name in the secret above that holds the actual OVH consumer key value
         key: consumer-key
+        namespace: cert-manager
 rbac:
   # If the secret of the issuer is in a different namespace, change `Role` (default)
   # to `ClusterRole` so the webhook is able to access this secret.
