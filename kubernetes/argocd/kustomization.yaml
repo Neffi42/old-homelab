@@ -7,4 +7,5 @@ resources:
   - ./external-secret.yaml
   - https://raw.githubusercontent.com/argoproj/argo-cd/stable/manifests/install.yaml
 patches:
-  - path: ./cmd-params-patch.yaml
+  - path: ./argocd-cmd-params-patch.yaml
+  - path: ./argocd-cm-patch.yaml
