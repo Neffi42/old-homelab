@@ -5,11 +5,11 @@ resources:
   - ./namespace.yaml
   - ./certificate.yaml
   - ./cluster-secret-store.yaml
-# helmCharts:
-#   - name: external-secrets
-#     repo: https://charts.external-secrets.io
-#     releaseName: external-secrets
-#     namespace: external-secrets
-#     valuesInline:
-#       bitwarden-sdk-server:
-#         enabled: true
+helmCharts:
+  - name: external-secrets
+    repo: https://charts.external-secrets.io
+    releaseName: external-secrets
+    namespace: external-secrets
+    valuesInline:
+      bitwarden-sdk-server:
+        enabled: true
