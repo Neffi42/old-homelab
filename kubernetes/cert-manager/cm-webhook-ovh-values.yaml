@@ -1,0 +1,23 @@
+groupName: acme.neffi.fr
+certManager:
+  namespace: cert-manager
+  serviceAccountName: cert-manager
+issuers:
+  - name: le-prod
+    create: true
+    kind: ClusterIssuer
+    cnameStrategy: None
+    acmeServerUrl: https://acme-v02.api.letsencrypt.org/directory
+    email: me@neffi.fr
+    ovhEndpointName: ovh-eu
+    ovhAuthenticationMethod: application
+    ovhAuthenticationRef:
+      applicationKeyRef:
+        name: ovh-auth
+        key: application-key
+      applicationSecretRef:
+        name: ovh-auth
+        key: application-secret
+      applicationConsumerKeyRef:
+        name: ovh-auth
+        key: consumer-key
