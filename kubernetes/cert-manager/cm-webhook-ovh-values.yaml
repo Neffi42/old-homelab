@@ -13,11 +13,11 @@ issuers:
     ovhAuthenticationMethod: application
     ovhAuthenticationRef:
       applicationKeyRef:
-        name: ovh-auth
+        name: cert-manager-ovh-auth
         key: application-key
       applicationSecretRef:
-        name: ovh-auth
+        name: cert-manager-ovh-auth
         key: application-secret
       applicationConsumerKeyRef:
-        name: ovh-auth
+        name: cert-manager-ovh-auth
         key: consumer-key
