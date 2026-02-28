@@ -1,0 +1,8 @@
+auth:
+  username: postgres
+  existingSecret: "postgres-auth"
+  secretKeys:
+    adminPasswordKey: "postgres-password"
+primary:
+  persistence:
+    enabled: true

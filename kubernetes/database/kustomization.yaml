@@ -4,3 +4,10 @@ kind: Kustomization
 resources:
   - ./namespace.yaml
   - ./external-secret.yaml
+helmCharts:
+  - name: postgresql
+    repo: https://charts.bitnami.com/bitnami
+    releaseName: postgresql
+    version: 18.5.1
+    namespace: database
+    valuesFile: ./values.yaml
