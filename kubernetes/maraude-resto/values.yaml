@@ -1,0 +1,8 @@
+replicas: 1
+config:
+  secretName: gitlab-agent-auth
+  kasAddress: wss://kas.gitlab.com
+rbac.create: false
+serviceAccount:
+  create: false
+  name: gitlab-agent-sa
