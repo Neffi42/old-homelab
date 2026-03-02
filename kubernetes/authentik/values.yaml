@@ -1,0 +1,31 @@
+authentik:
+  error_reporting:
+    enabled: false
+postgresql:
+  enabled: false
+global:
+  env:
+    - name: AUTHENTIK_POSTGRESQL__HOST
+      value: "postgresql.database.svc.cluster.local"
+    - name: AUTHENTIK_POSTGRESQL__NAME
+      value: "authentik"
+    - name: AUTHENTIK_POSTGRESQL__USER
+      value: "authentik"
+    - name: AUTHENTIK_POSTGRESQL__PASSWORD
+      valueFrom:
+        secretKeyRef:
+          name: authentik-credentials
+          key: db-password
+    - name: AUTHENTIK_SECRET_KEY
+      valueFrom:
+        secretKeyRef:
+          name: authentik-credentials
+          key: secret-key
+  volumes:
+    - name: authentik-shared-storage
+      persistentVolumeClaim:
+        claimName: authentik
+  volumeMounts:
+    - name: authentik-shared-storage
+      mountPath: /data/media
+      subPath: media
