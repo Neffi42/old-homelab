@@ -1,6 +1,7 @@
 # yaml-language-server: $schema=https://json.schemastore.org/kustomization
 apiVersion: kustomize.config.k8s.io/v1beta1
 kind: Kustomization
+namespace: argocd
 resources:
   - ./namespace.yaml
   - ./route.yaml
@@ -9,3 +10,4 @@ resources:
 patches:
   - path: ./argocd-cmd-params-patch.yaml
   - path: ./argocd-cm-patch.yaml
+  - path: ./argocd-repo-server-patch.yaml
