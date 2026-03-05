@@ -44,7 +44,7 @@ spec:
     - name: https
       hostname: "*.neffi.fr"
       protocol: HTTPS
-      port: 443
+      port: 4443
       allowedRoutes:
         namespaces:
           from: All
