@@ -11,8 +11,8 @@ spec:
     - "nextcloud.neffi.fr"
   rules:
     - backendRefs:
-        - name: nextcloud-server
-          port: 80
+        - name: nextcloud
+          port: 8080
       matches:
         - path:
             type: PathPrefix

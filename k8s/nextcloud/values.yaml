@@ -1,21 +1,40 @@
-internalDatabase.enabled: false
+nodeSelector:
+  kubernetes.io/hostname: oliver
+nextcloud:
+  host: "nextcloud.neffi.fr"
+  existingSecret:
+    enabled: true
+    secretName: nextcloud-credentials
+    usernameKey: admin-username
+    passwordKey: admin-password
+internalDatabase:
+  enabled: false
 externalDatabase:
   enabled: true
   type: postgresql
-  host: postgresql:5432
+  host: postgresql.database.svc.cluster.local:5432
   existingSecret:
-    secretName:
     enabled: true
-    passwordKey: password
-configs:
-  oidc.config.php: |-
-    <?php
-    $CONFIG = array (
-      'oidc_login_provider_url' => 'https://auth.yourdomain.com/application/o/nextcloud/',
-      'oidc_login_client_id' => 'your-authentik-client-id',
-      'oidc_login_client_secret' => 'your-authentik-client-secret',
-      'oidc_login_auto_redirect' => true,
-      'oidc_login_button_text' => 'Log in with Authentik',
-      'oidc_login_hide_password_form' => true,
-      'oidc_login_use_id_token' => true,
-    );
+    secretName: nextcloud-credentials
+    usernameKey: db-username
+    passwordKey: db-password
+extraEnv:
+  - name: NEXTCLOUD_TRUSTED_DOMAINS
+    value: "nextcloud.neffi.fr localhost"
+  - name: TRUSTED_PROXIES
+    value: "10.42.0.0/16 10.0.0.0/8"
+  - name: APACHE_DISABLE_REWRITE_IP
+    value: 1
+  - name: OVERWRITEHOST
+    value: "nextcloud.neffi.fr"
+  - name: OVERWRITEPROTOCOL
+    value: "https"
+  - name: OVERWRITECONDADDR
+    value: "^10\\.42\\..*"
+persistence:
+  enabled: true
+  existingClaim: nextcloud
+livenessProbe:
+  initialDelaySeconds: 30
+readinessProbe:
+  initialDelaySeconds: 30

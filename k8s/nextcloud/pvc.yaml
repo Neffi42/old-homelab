@@ -7,10 +7,11 @@ metadata:
   labels:
     app: nextcloud
 spec:
+  storageClassName: "local-path-ssd"
   accessModes:
     - ReadWriteOnce
   resources:
     requests:
-      storage: 300Gi
+      storage: 8Gi
 ---
 
