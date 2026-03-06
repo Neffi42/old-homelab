@@ -1,0 +1,33 @@
+# https://kubernetes.io/docs/concepts/storage/persistent-volumes/
+apiVersion: v1
+kind: PersistentVolumeClaim
+metadata:
+  name: jellyfin-config
+  namespace: jellyfin
+  labels:
+    app: jellyfin-config
+spec:
+  storageClassName: "local-path"
+  accessModes:
+    - ReadWriteOnce
+  resources:
+    requests:
+      storage: 5Gi
+---
+# https://kubernetes.io/docs/concepts/storage/persistent-volumes/
+apiVersion: v1
+kind: PersistentVolumeClaim
+metadata:
+  name: jellyfin-media
+  namespace: jellyfin
+  labels:
+    app: jellyfin-media
+spec:
+  storageClassName: "local-path-hdd"
+  accessModes:
+    - ReadWriteOnce
+  resources:
+    requests:
+      storage: 25Gi
+---
+

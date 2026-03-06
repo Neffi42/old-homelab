@@ -1,0 +1,14 @@
+# yaml-language-server: $schema=https://json.schemastore.org/kustomization
+apiVersion: kustomize.config.k8s.io/v1beta1
+kind: Kustomization
+resources:
+  - ./namespace.yaml
+  - ./pvc.yaml
+  - ./route.yaml
+helmCharts:
+  - name: jellyfin
+    repo: https://jellyfin.github.io/jellyfin-helm/
+    releaseName: jellyfin
+    version: 2.7.0
+    namespace: jellyfin
+    valuesFile: ./values.yaml
