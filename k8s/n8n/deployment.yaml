@@ -1,0 +1,123 @@
+# https://kubernetes.io/docs/concepts/workloads/controllers/deployment/
+apiVersion: apps/v1
+kind: Deployment
+metadata:
+  name: n8n
+  namespace: n8n
+  labels:
+    app: n8n
+spec:
+  selector:
+    matchLabels:
+      app: n8n
+  replicas: 1
+  strategy:
+    rollingUpdate:
+      maxSurge: 25%
+      maxUnavailable: 25%
+    type: RollingUpdate
+  template:
+    metadata:
+      annotations:
+        kubectl.kubernetes.io/default-container: n8n
+      labels:
+        app: n8n
+    spec:
+      nodeSelector:
+        kubernetes.io/hostname: raspberrypi
+      containers:
+        - name: n8n
+          image: docker.n8n.io/n8nio/n8n:2.11.4
+          imagePullPolicy:
+          livenessProbe:
+            tcpSocket:
+              port: 5678
+            initialDelaySeconds: 5
+            timeoutSeconds: 5
+            successThreshold: 1
+            failureThreshold: 3
+            periodSeconds: 10
+          readinessProbe:
+            httpGet:
+              path: /
+              port: 5678
+            initialDelaySeconds: 5
+            timeoutSeconds: 2
+            successThreshold: 1
+            failureThreshold: 3
+            periodSeconds: 10
+          env:
+            - name: NODE_ENV
+              value: production
+            - name: GENERIC_TIMEZONE
+              value: "Europe/Paris"
+            - name: N8N_HOST
+              value: "https://n8n.neffi.fr"
+            - name: WEBHOOK_URL
+              value: "https://n8n.neffi.fr"
+            - name: EXTERNAL_HOOK_FILES
+              value: "/home/node/hooks/sso.js"
+            - name: N8N_FORWARD_AUTH_HEADER
+              value: x-authentik-email
+            - name: N8N_PROXY_HOPS
+              value: "1"
+            - name: N8N_DIAGNOSTICS_ENABLED
+              value: "false"
+            - name: N8N_DIAGNOSTICS_CONFIG_FRONTEND
+              value: ""
+            - name: N8N_DIAGNOSTICS_CONFIG_BACKEND
+              value: ""
+            - name: N8N_TEMPLATES_ENABLED
+              value: "false"
+            - name: N8N_RUNNERS_MODE
+              value: external
+            - name: DB_TYPE
+              value: postgresdb
+            - name: DB_POSTGRESDB_HOST
+              value: "postgresql.database.svc.cluster.local"
+            - name: DB_POSTGRESDB_PORT
+              value: "5432"
+            - name: DB_POSTGRESDB_DATABASE
+              value: n8n
+            - name: DB_POSTGRESDB_USER
+              value: n8n
+            - name: DB_POSTGRESDB_PASSWORD
+              valueFrom:
+                secretKeyRef:
+                  name: n8n-credentials
+                  key: db-password
+          ports:
+            - containerPort: 5678
+              name: n8n
+          volumeMounts:
+            - name: n8n-shared-storage
+              mountPath: /home/node/.n8n
+              subPath: n8n
+            - name: n8n-shared-storage
+              mountPath: /home/node/hooks
+              subPath: hooks
+            - name: n8n-shared-storage
+              mountPath: /files
+              subPath: files
+      volumes:
+        - name: n8n-shared-storage
+          persistentVolumeClaim:
+            claimName: n8n
+      restartPolicy: Always
+---
+# https://kubernetes.io/docs/concepts/services-networking/service/
+apiVersion: v1
+kind: Service
+metadata:
+  name: n8n
+  namespace: n8n
+spec:
+  selector:
+    app: n8n
+  type: ClusterIP
+  ports:
+    - name: n8n
+      protocol: TCP
+      port: 5678
+      targetPort: 5678
+---
