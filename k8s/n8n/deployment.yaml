@@ -54,9 +54,25 @@ spec:
             - name: WEBHOOK_URL
               value: "https://n8n.neffi.fr"
             - name: EXTERNAL_HOOK_FILES
-              value: "/home/node/hooks/sso.js"
-            - name: N8N_FORWARD_AUTH_HEADER
-              value: x-authentik-email
+              value: "/home/node/hooks/oidc.js"
+            - name: EXTERNAL_FRONTEND_HOOKS_URLS
+              value: "/assets/oidc-frontend-hook.js"
+            - name: OIDC_ISSUER_URL
+              value: "https://authentik.neffi.fr/application/o/n8n"
+            - name: OIDC_REDIRECT_URI
+              value: "https://n8n.neffi.fr/auth/oidc/callback"
+            - name: OIDC_CLIENT_ID
+              valueFrom:
+                secretKeyRef:
+                  name: n8n-credentials
+                  key: oidc-client-id
+            - name: OIDC_CLIENT_SECRET
+              valueFrom:
+                secretKeyRef:
+                  name: n8n-credentials
+                  key: oidc-client-secret
+            - name: N8N_ADDITIONAL_NON_UI_ROUTES
+              value: "auth"
             - name: N8N_PROXY_HOPS
               value: "1"
             - name: N8N_DIAGNOSTICS_ENABLED
