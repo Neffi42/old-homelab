@@ -67,8 +67,6 @@ spec:
               value: ""
             - name: N8N_TEMPLATES_ENABLED
               value: "false"
-            - name: N8N_RUNNERS_MODE
-              value: external
             - name: DB_TYPE
               value: postgresdb
             - name: DB_POSTGRESDB_HOST
