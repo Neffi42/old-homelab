@@ -30,18 +30,16 @@ spec:
           livenessProbe:
             tcpSocket:
               port: 5678
-            initialDelaySeconds: 5
+            initialDelaySeconds: 30
             timeoutSeconds: 5
-            successThreshold: 1
             failureThreshold: 3
             periodSeconds: 10
           readinessProbe:
             httpGet:
               path: /
               port: 5678
-            initialDelaySeconds: 5
-            timeoutSeconds: 2
-            successThreshold: 1
+            initialDelaySeconds: 30
+            timeoutSeconds: 5
             failureThreshold: 3
             periodSeconds: 10
           env:
