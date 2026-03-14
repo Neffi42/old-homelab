@@ -7,7 +7,6 @@ metadata:
   labels:
     app: n8n
 spec:
-  storageClassName: "local-path-qualidata"
   accessModes:
     - ReadWriteOnce
   resources:

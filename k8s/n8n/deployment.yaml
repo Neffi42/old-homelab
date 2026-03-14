@@ -23,8 +23,6 @@ spec:
       labels:
         app: n8n
     spec:
-      nodeSelector:
-        kubernetes.io/hostname: raspberrypi
       containers:
         - name: n8n
           image: docker.n8n.io/n8nio/n8n:2.11.4
