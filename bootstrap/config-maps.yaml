@@ -10,10 +10,6 @@ data:
       {
         "node":"DEFAULT_PATH_FOR_NON_LISTED_NODES",
         "paths":["/var/lib/rancher/k3s/storage", "/mnt/nabil/k3s", "/mnt/fab/k3s"]
-      },
-      {
-        "node":"raspberrypi",
-        "paths":["/mnt/qualidata/k3s"]
       }
       ]
     }
