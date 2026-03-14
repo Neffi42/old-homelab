@@ -36,8 +36,7 @@ metadata:
   name: local-path-qualidata
 provisioner: rancher.io/local-path
 parameters:
-  nodePath: /mnt/qualidata
+  nodePath: /mnt/qualidata/k3s
 volumeBindingMode: WaitForFirstConsumer
 reclaimPolicy: Delete
 ---
-

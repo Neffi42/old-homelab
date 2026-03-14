@@ -13,7 +13,7 @@ data:
       },
       {
         "node":"raspberrypi",
-        "paths":["/mnt/qualidata"]
+        "paths":["/mnt/qualidata/k3s"]
       }
       ]
     }
