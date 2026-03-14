@@ -49,6 +49,8 @@ spec:
               value: production
             - name: GENERIC_TIMEZONE
               value: "Europe/Paris"
+            - name: N8N_PORT
+              value: "5678"
             - name: N8N_HOST
               value: "https://n8n.neffi.fr"
             - name: WEBHOOK_URL
