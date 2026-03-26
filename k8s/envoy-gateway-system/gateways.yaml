@@ -59,4 +59,7 @@ spec:
         kinds:
           - kind: TCPRoute
         namespaces:
-          from: forgejo
+          from: Selector
+          selector:
+            matchLabels:
+              kubernetes.io/metadata.name: forgejo
