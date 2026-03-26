@@ -1,0 +1,14 @@
+# yaml-language-server: $schema=https://json.schemastore.org/kustomization
+apiVersion: kustomize.config.k8s.io/v1beta1
+kind: Kustomization
+resources:
+  - ./namespace.yaml
+  - ./external-secret.yaml
+  - ./pvc.yaml
+helmCharts:
+  - name: forgejo
+    repo: oci://code.forgejo.org/forgejo-helm
+    releaseName: forgejo
+    version: 16.2.1
+    namespace: forgejo
+    valuesFile: ./values.yaml

@@ -1,0 +1,60 @@
+nodeSelector:
+  kubernetes.io/hostname: oliver
+
+httpRoute:
+  enabled: true
+  parentRefs:
+    - name: public
+      namespace: envoy-gateway-system
+  hostnames:
+    - "code.neffi.fr"
+
+tcpRoute:
+  enabled: true
+  parentRefs:
+    - name: public
+      namespace: envoy-gateway-system
+      sectionName: ssh
+
+persistence:
+  enabled: true
+  create: false
+  claimName: forgejo
+
+signing:
+  enabled: true
+  existingSecret: forgejo-signing-credentials
+
+gitea:
+  additionalConfigSources:
+    - secret:
+        secretName: forgejo-db-credentials
+
+  admin:
+    username: ""
+
+  oauth:
+    - name: "authentik"
+      provider: "openidConnect"
+      existingSecret: forgejo-oauth-credentials
+      autoDiscoverUrl: "https://authentik.neffi.fr/application/o/forgejo/.well-known/openid-configuration"
+
+  config:
+    indexer:
+      REPO_INDEXER_ENABLED: true
+    repository:
+      signing:
+        SIGNING_KEY: 1D30D4E4BD48E18B880679F1BBA5C4884DD3E2A0
+        SIGNING_NAME: Forgejo
+        SIGNING_EMAIL: no-reply@neffi.fr
+        INITIAL_COMMIT: always
+        CRUD_ACTIONS: pubkey
+        WIKI: always
+        MERGES: pubkey
+    service:
+      ALLOW_ONLY_EXTERNAL_REGISTRATION: true
+      SHOW_REGISTRATION_BUTTON: false
+      ENABLE_INTERNAL_SIGNIN: false
+
+  server:
+    DOMAIN: "code.neffi.fr"
