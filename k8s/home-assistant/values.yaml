@@ -1,0 +1,31 @@
+nodeSelector:
+  kubernetes.io/hostname: oliver
+persistence:
+  enabled: true
+additionalVolumes:
+  - name: ha-secrets
+    secret:
+      secretName: home-assistant-credentials
+additionalMounts:
+  - name: ha-secrets
+    mountPath: /config/secrets.yaml
+    subPath: secrets.yaml
+    readOnly: true
+configuration:
+  enabled: true
+  forceInit: true
+  templateConfig: |-
+    http:
+      use_x_forwarded_for: true
+      trusted_proxies:
+        - "10.0.0.0/8"
+        - "172.16.0.0/12"
+        - "192.168.0.0/16"
+        - "127.0.0.0/8"
+    openid:
+      client_id: !secret oauth_id
+      client_secret: !secret oauth_secret
+      configure_url: "https://authentik.neffi.fr/application/o/home-assistant/.well-known/openid-configuration"
+      scope: "openid profile email"
+      username_field: "preferred_username"
+      block_login: false
