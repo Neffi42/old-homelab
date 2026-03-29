@@ -1,0 +1,91 @@
+# https://kubernetes.io/docs/concepts/workloads/controllers/deployment/
+apiVersion: apps/v1
+kind: Deployment
+metadata:
+  name: ispyagentdvr
+  namespace: ispyagentdvr
+  labels:
+    app: ispyagentdvr
+spec:
+  selector:
+    matchLabels:
+      app: ispyagentdvr
+  replicas: 1
+  strategy:
+    rollingUpdate:
+      maxSurge: 25%
+      maxUnavailable: 25%
+    type: RollingUpdate
+  template:
+    metadata:
+      annotations:
+        kubectl.kubernetes.io/default-container: ispyagentdvr
+      labels:
+        app: ispyagentdvr
+    spec:
+      nodeSelector:
+        kubernetes.io/hostname: oliver
+      containers:
+        - env:
+            - name: AGENTDVR_WEBUI_PORT
+              value: "8090"
+            - name: PGID
+              value: "1000"
+            - name: PUID
+              value: "1000"
+            - name: TZ
+              value: Europe/Paris
+          image: mekayelanik/ispyagentdvr:latest
+          name: ispyagentdvr
+          ports:
+            - containerPort: 8090
+              protocol: TCP
+          livenessProbe:
+            tcpSocket:
+              port: 8090
+            initialDelaySeconds: 30
+            timeoutSeconds: 5
+            failureThreshold: 3
+            periodSeconds: 10
+          readinessProbe:
+            httpGet:
+              path: /
+              port: 8090
+            initialDelaySeconds: 30
+            timeoutSeconds: 5
+            failureThreshold: 3
+            periodSeconds: 10
+          volumeMounts:
+            - name: ispyagentdvr
+              mountPath: /AgentDVR/Media/XML
+              subPath: XML
+            - name: ispyagentdvr
+              mountPath: /AgentDVR/Media/WebServerRoot/Media
+              subPath: Media
+            - name: ispyagentdvr
+              mountPath: /AgentDVR/Media/Models
+              subPath: Models
+            - name: ispyagentdvr
+              mountPath: /AgentDVR/Commands
+              subPath: Commands
+      volumes:
+        - name: ispyagentdvr
+          persistentVolumeClaim:
+            claimName: ispyagentdvr
+      restartPolicy: Always
+---
+# https://kubernetes.io/docs/concepts/services-networking/service/
+apiVersion: v1
+kind: Service
+metadata:
+  name: ispyagentdvr
+  namespace: ispyagentdvr
+spec:
+  selector:
+    app: ispyagentdvr
+  type:
+  ports:
+    - name: ispyagentdvr
+      port: 8090
+      targetPort: 8090
+---
