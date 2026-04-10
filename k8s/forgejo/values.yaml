@@ -40,6 +40,8 @@ gitea:
       autoDiscoverUrl: "https://authentik.neffi.fr/application/o/forgejo/.well-known/openid-configuration"
 
   config:
+    server:
+      LFS_START_SERVER: true
     indexer:
       REPO_INDEXER_ENABLED: true
     repository:
@@ -55,6 +57,8 @@ gitea:
       ALLOW_ONLY_EXTERNAL_REGISTRATION: true
       SHOW_REGISTRATION_BUTTON: false
       ENABLE_INTERNAL_SIGNIN: false
+    lfs:
+      STORAGE_TYPE: local
 
   server:
     DOMAIN: "code.neffi.fr"
