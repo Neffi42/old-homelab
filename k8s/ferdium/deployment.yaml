@@ -1,0 +1,113 @@
+# https://kubernetes.io/docs/concepts/workloads/controllers/deployment/
+apiVersion: apps/v1
+kind: Deployment
+metadata:
+  labels:
+    app: ferdium
+  name: ferdium
+  namespace: ferdium
+spec:
+  replicas: 1
+  selector:
+    matchLabels:
+      app: ferdium
+  strategy:
+    rollingUpdate:
+      maxSurge: 25%
+      maxUnavailable: 25%
+    type: RollingUpdate
+  template:
+    metadata:
+      annotations:
+        kubectl.kubernetes.io/default-container: ferdium
+      labels:
+        app: ferdium
+    spec:
+      containers:
+        - image: ferdium/ferdium-server:latest
+          name: ferdium
+          env:
+            - name: TZ
+              value: Europe/Paris
+            - name: APP_URL
+              value: "https://feridum.neffi.fr"
+            - name: NODE_ENV
+              value: production
+            - name: CONNECT_WITH_FRANZ
+              value: "false"
+            - name: MAIL_CONNECTION
+              value: ""
+            - name: JWT_USE_PEM
+              value: "true"
+            - name: IS_DASHBOARD_ENABLED
+              value: "true"
+            - name: IS_CREATION_ENABLED
+              value: "true"
+            - name: IS_REGISTRATION_ENABLED
+              value: "true"
+            - name: DB_CONNECTION
+              value: "pg"
+            - name: DB_HOST
+              value: "postgresql.database.svc.cluster.local"
+            - name: DB_PORT
+              value: "5432"
+            - name: DB_DATABASE
+              value: ferdium
+            - name: DB_SSL
+              value: "false"
+            - name: DB_USER
+              valueFrom:
+                secretKeyRef:
+                  name: ferdium-credentials
+                  key: db-user
+            - name: DB_PASSWORD
+              valueFrom:
+                secretKeyRef:
+                  name: ferdium-credentials
+                  key: db-password
+          ports:
+            - containerPort: 3333
+              protocol: TCP
+          livenessProbe:
+            tcpSocket:
+              port: 3333
+            initialDelaySeconds: 30
+            timeoutSeconds: 5
+            failureThreshold: 3
+            periodSeconds: 10
+          readinessProbe:
+            httpGet:
+              path: /
+              port: 3333
+            initialDelaySeconds: 30
+            timeoutSeconds: 5
+            failureThreshold: 3
+            periodSeconds: 10
+          volumeMounts:
+            - name: ferdium
+              mountPath: /data
+              subPath: data
+            - name: ferdium
+              mountPath: /app/build/recipes
+              subPath: recipes
+      restartPolicy: Always
+      volumes:
+        - name: ferdium
+          persistentVolumeClaim:
+            claimName: ferdium
+---
+# https://kubernetes.io/docs/concepts/services-networking/service/
+apiVersion: v1
+kind: Service
+metadata:
+  name: ferdium
+  namespace: ferdium
+spec:
+  selector:
+    app: ferdium
+  type: ClusterIP
+  ports:
+    - name: ferdium
+      port: 3333
+      targetPort: 3333
+---
