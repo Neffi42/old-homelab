@@ -29,6 +29,18 @@ spec:
         mode: Terminate
         certificateRefs:
           - name: "neffi-fr-tls"
+    - name: dns-udp
+      protocol: UDP
+      port: 53
+      allowedRoutes:
+        namespaces:
+          from: All
+    - name: dns-tcp
+      protocol: TCP
+      port: 53
+      allowedRoutes:
+        namespaces:
+          from: All
 ---
 apiVersion: gateway.networking.k8s.io/v1
 kind: Gateway

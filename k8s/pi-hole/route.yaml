@@ -1,0 +1,47 @@
+apiVersion: gateway.networking.k8s.io/v1
+kind: HTTPRoute
+metadata:
+  name: pi-hole-http
+  namespace: pi-hole
+spec:
+  parentRefs:
+    - name: private
+      namespace: envoy-gateway-system
+  hostnames:
+    - "pi-hole.neffi.fr"
+  rules:
+    - backendRefs:
+        - name: pi-hole
+          port: 80
+      matches:
+        - path:
+            type: PathPrefix
+            value: /
+---
+apiVersion: gateway.networking.k8s.io/v1alpha2
+kind: UDPRoute
+metadata:
+  name: pi-hole-dns-udp
+  namespace: pi-hole
+spec:
+  parentRefs:
+    - name: private
+      namespace: envoy-gateway-system
+  rules:
+    - backendRefs:
+        - name: pi-hole
+          port: 53
+---
+apiVersion: gateway.networking.k8s.io/v1alpha2
+kind: TCPRoute
+metadata:
+  name: pi-hole-dns-tcp
+  namespace: pi-hole
+spec:
+  parentRefs:
+    - name: private
+      namespace: envoy-gateway-system
+  rules:
+    - backendRefs:
+        - name: pi-hole
+          port: 53
