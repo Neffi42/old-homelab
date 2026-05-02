@@ -1,0 +1,13 @@
+# yaml-language-server: $schema=https://json.schemastore.org/kustomization
+apiVersion: kustomize.config.k8s.io/v1beta1
+kind: Kustomization
+resources:
+  - ./namespace.yaml
+  - ./storage-class.yaml
+helmCharts:
+  - name: longhorn
+    releaseName: longhorn
+    repo: https://charts.longhorn.io
+    version: v1.11.1
+    namespace: longhorn-system
+    valuesFile: ./values.yaml

@@ -1,0 +1,23 @@
+preUpgradeChecker:
+  jobEnabled: false
+
+defaultSettings:
+  defaultDataPath: "/var/lib/longhorn"
+  defaultReplicaCount: 2
+
+persistence:
+  defaultClassReplicaCount: 1
+  defaultDiskSelector:
+    enable: true
+    selector: "default"
+
+httproute:
+  enabled: true
+  parentRefs:
+    - name: private
+      namespace: envoy-gateway-system
+      sectionName: https
+  hostnames:
+    - longhorn.neffi.fr
+  path: /
+  pathType: PathPrefix
