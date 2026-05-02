@@ -23,6 +23,8 @@ spec:
       labels:
         app: ferdium
     spec:
+      nodeSelector:
+        kubernetes.io/hostname: oliver
       containers:
         - image: ferdium/ferdium-server:latest
           name: ferdium
