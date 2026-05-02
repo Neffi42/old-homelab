@@ -114,7 +114,7 @@ spec:
       volumes:
         - name: n8n-shared-storage
           persistentVolumeClaim:
-            claimName: n8n
+            claimName: n8n-longhorn
       restartPolicy: Always
 ---
 # https://kubernetes.io/docs/concepts/services-networking/service/

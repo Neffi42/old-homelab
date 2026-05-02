@@ -2,14 +2,13 @@
 apiVersion: v1
 kind: PersistentVolumeClaim
 metadata:
-  name: n8n
+  name: n8n-longhorn
   namespace: n8n
-  labels:
-    app: n8n
 spec:
   accessModes:
     - ReadWriteOnce
+  storageClassName: longhorn-hdd
   resources:
     requests:
-      storage: 8Gi
+      storage: 1Gi
 ---
