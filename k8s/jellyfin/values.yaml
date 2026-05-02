@@ -3,7 +3,7 @@ nodeSelector:
 persistence:
   config:
     enabled: true
-    existingClaim: jellyfin-config
+    existingClaim: jellyfin-config-longhorn
   media:
     enabled: true
-    existingClaim: jellyfin-media
+    existingClaim: jellyfin-media-longhorn
