@@ -1,9 +1,7 @@
 apiVersion: v1
 kind: PersistentVolumeClaim
 metadata:
-  labels:
-    app: ferdium
-  name: ferdium
+  name: ferdium-longhorn
   namespace: ferdium
 spec:
   accessModes:
@@ -11,3 +9,4 @@ spec:
   resources:
     requests:
       storage: 100Mi
+---

@@ -94,7 +94,7 @@ spec:
       volumes:
         - name: ferdium
           persistentVolumeClaim:
-            claimName: ferdium
+            claimName: ferdium-longhorn
 ---
 # https://kubernetes.io/docs/concepts/services-networking/service/
 apiVersion: v1
