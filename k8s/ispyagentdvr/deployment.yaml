@@ -71,7 +71,7 @@ spec:
       volumes:
         - name: ispyagentdvr
           persistentVolumeClaim:
-            claimName: ispyagentdvr
+            claimName: ispyagentdvr-longhorn
       restartPolicy: Always
 ---
 # https://kubernetes.io/docs/concepts/services-networking/service/

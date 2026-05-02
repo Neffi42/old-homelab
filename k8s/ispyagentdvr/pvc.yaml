@@ -2,13 +2,12 @@
 apiVersion: v1
 kind: PersistentVolumeClaim
 metadata:
-  name: ispyagentdvr
+  name: ispyagentdvr-longhorn
   namespace: ispyagentdvr
-  labels:
-    app: ispyagentdvr
 spec:
   accessModes:
     - ReadWriteOnce
+  storageClassName: "longhorn-hdd"
   resources:
     requests:
       storage: 8Gi
