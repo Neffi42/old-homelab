@@ -1,7 +1,6 @@
-nodeSelector:
-  kubernetes.io/hostname: oliver
 persistence:
   enabled: true
+  storageClass: "longhorn-hdd"
 additionalVolumes:
   - name: ha-secrets
     secret:
