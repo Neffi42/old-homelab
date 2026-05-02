@@ -33,7 +33,7 @@ extraEnv:
     value: "^10\\.42\\..*"
 persistence:
   enabled: true
-  existingClaim: nextcloud
+  existingClaim: nextcloud-longhorn
 livenessProbe:
   initialDelaySeconds: 30
 readinessProbe:
