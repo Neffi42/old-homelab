@@ -9,6 +9,7 @@ metadata:
 spec:
   accessModes:
     - ReadWriteOnce
+  storageClassName: "longhorn-hdd"
   resources:
     requests:
       storage: 8Gi

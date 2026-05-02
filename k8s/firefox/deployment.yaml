@@ -23,8 +23,6 @@ spec:
       labels:
         app: firefox
     spec:
-      nodeSelector:
-        kubernetes.io/hostname: oliver
       containers:
         - env:
             - name: PGID
