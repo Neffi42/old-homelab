@@ -1,0 +1,14 @@
+# https://kubernetes.io/docs/concepts/storage/persistent-volumes/
+apiVersion: v1
+kind: PersistentVolumeClaim
+metadata:
+  name: database-longhorn
+  namespace: database
+spec:
+  accessModes:
+    - ReadWriteOnce
+  storageClassName: "longhorn-ssd"
+  resources:
+    requests:
+      storage: 8Gi
+---

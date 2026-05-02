@@ -4,5 +4,8 @@ auth:
   secretKeys:
     adminPasswordKey: "postgres-password"
 primary:
+  nodeSelector:
+    kubernetes.io/hostname: oliver
   persistence:
     enabled: true
+    existingClaim: "database-longhorn"

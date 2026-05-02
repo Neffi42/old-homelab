@@ -4,6 +4,7 @@ kind: Kustomization
 resources:
   - ./namespace.yaml
   - ./external-secret.yaml
+  - ./pvc.yaml
 helmCharts:
   - name: postgresql
     repo: https://charts.bitnami.com/bitnami
