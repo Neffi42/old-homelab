@@ -2,14 +2,13 @@
 apiVersion: v1
 kind: PersistentVolumeClaim
 metadata:
-  name: forgejo-runner
+  name: forgejo-runner-longhorn
   namespace: forgejo-runner
-  labels:
-    app: forgejo-runner
 spec:
   accessModes:
     - ReadWriteOnce
+  storageClassName: "longhorn-hdd"
   resources:
     requests:
-      storage: 8Gi
+      storage: 2Gi
 ---

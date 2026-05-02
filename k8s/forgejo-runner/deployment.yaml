@@ -40,7 +40,7 @@ spec:
       volumes:
         - name: forgejo-runner-storage
           persistentVolumeClaim:
-            claimName: forgejo-runner
+            claimName: forgejo-runner-longhorn
         - name: config-volume
           configMap:
             name: forgejo-runner-config
