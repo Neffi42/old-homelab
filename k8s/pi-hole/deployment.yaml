@@ -23,6 +23,8 @@ spec:
       labels:
         app: pi-hole
     spec:
+      nodeSelector:
+        kubernetes.io/hostname: oliver
       containers:
         - image: docker.io/pihole/pihole:latest
           name: pi-hole
@@ -69,7 +71,7 @@ spec:
       volumes:
         - name: pi-hole
           persistentVolumeClaim:
-            claimName: pi-hole
+            claimName: pi-hole-longhorn
       restartPolicy: Always
 ---
 # https://kubernetes.io/docs/concepts/services-networking/service/
