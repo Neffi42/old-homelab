@@ -2,12 +2,10 @@
 apiVersion: v1
 kind: PersistentVolumeClaim
 metadata:
-  name: forgejo
+  name: forgejo-longhorn
   namespace: forgejo
-  labels:
-    app: forgejo
 spec:
-  storageClassName: "local-path-ssd"
+  storageClassName: "longhorn-ssd"
   accessModes:
     - ReadWriteOnce
   resources:
