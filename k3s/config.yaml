@@ -1,6 +1,7 @@
 write-kubeconfig-group: sudo
 disable:
   - traefik
+  - local-storage
 tls-san:
   - oliver
   - oliver.tailcb1670.ts.net
