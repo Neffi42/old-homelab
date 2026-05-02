@@ -2,10 +2,8 @@
 apiVersion: v1
 kind: PersistentVolumeClaim
 metadata:
-  name: authentik
+  name: authentik-longhorn
   namespace: authentik
-  labels:
-    app: authentik
 spec:
   accessModes:
     - ReadWriteOnce
@@ -13,4 +11,3 @@ spec:
     requests:
       storage: 2Gi
 ---
-

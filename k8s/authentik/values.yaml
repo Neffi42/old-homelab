@@ -24,7 +24,7 @@ global:
   volumes:
     - name: authentik-shared-storage
       persistentVolumeClaim:
-        claimName: authentik
+        claimName: authentik-longhorn
   volumeMounts:
     - name: authentik-shared-storage
       mountPath: /data/media
