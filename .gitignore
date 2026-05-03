@@ -2,4 +2,13 @@
 *.env
 *.key
 .DS_Store
+
+# Kubenertes
 kubeconfig
+
+# Terraform
+.terraform/
+*.tfvars
+*.tfvars.json
+*.tfstate
+*.tfstate.*
