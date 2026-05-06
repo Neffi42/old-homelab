@@ -35,7 +35,7 @@ spec:
               value: "1000"
             - name: TZ
               value: Europe/Paris
-          image: mekayelanik/ispyagentdvr:latest
+          image: mekayelanik/ispyagentdvr:7.4.6.0
           name: ispyagentdvr
           ports:
             - containerPort: 8090

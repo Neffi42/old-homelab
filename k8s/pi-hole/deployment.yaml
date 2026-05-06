@@ -26,7 +26,7 @@ spec:
       nodeSelector:
         kubernetes.io/hostname: oliver
       containers:
-        - image: docker.io/pihole/pihole:latest
+        - image: docker.io/pihole/pihole:2026.04.1
           name: pi-hole
           env:
             - name: TZ

@@ -31,7 +31,7 @@ spec:
               value: "1000"
             - name: TZ
               value: Europe/Paris
-          image: lscr.io/linuxserver/firefox:latest
+          image: lscr.io/linuxserver/firefox:1150.0.1
           name: firefox
           ports:
             - containerPort: 3000
