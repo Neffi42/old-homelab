@@ -9,7 +9,7 @@ data:
     {
       "repositories": ["Neffi42/homelab"],
       "platform": "forgejo",
-      "endpoint": "https://codeberg.org/api"
+      "endpoint": "https://codeberg.org"
     }
 ---
 apiVersion: batch/v1
@@ -20,8 +20,12 @@ metadata:
 spec:
   schedule: "@hourly"
   concurrencyPolicy: Forbid
+  successfulJobsHistoryLimit: 3
+  failedJobsHistoryLimit: 1
   jobTemplate:
     spec:
+      backoffLimit: 3
+      activeDeadlineSeconds: 900
       template:
         spec:
           nodeSelector:
@@ -31,16 +35,18 @@ spec:
               name: renovate-bot
               env:
                 - name: LOG_LEVEL
-                  value: info
+                  value: debug
                 - name: RENOVATE_BASE_DIR
                   value: "/tmp/renovate/"
                 - name: RENOVATE_CONFIG_FILE
                   value: "/opt/renovate/config.json"
+                - name: RENOVATE_PR_HOURLY_LIMIT
+                  value: "15"
                 - name: RENOVATE_TOKEN
                   valueFrom:
-                  secretKeyRef:
-                    name: renovate-credentials
-                    key: pat
+                    secretKeyRef:
+                      name: renovate-credentials
+                      key: pat
               volumeMounts:
                 - name: config-volume
                   mountPath: /opt/renovate/
