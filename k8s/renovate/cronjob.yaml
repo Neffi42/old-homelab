@@ -24,6 +24,8 @@ spec:
     spec:
       template:
         spec:
+          nodeSelector:
+            kubernetes.io/hostname: oliver
           containers:
             - image: renovate/renovate:43.168
               name: renovate-bot
