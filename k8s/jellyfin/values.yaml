@@ -6,4 +6,4 @@ persistence:
     existingClaim: jellyfin-config-longhorn
   media:
     enabled: true
-    existingClaim: jellyfin-media-longhorn
+    existingClaim: jellyfin-media-rwx

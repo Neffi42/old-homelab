@@ -1,0 +1,20 @@
+apiVersion: gateway.networking.k8s.io/v1
+kind: HTTPRoute
+metadata:
+  name: qbittorrent-webui
+  namespace: jellyfin
+spec:
+  parentRefs:
+    - name: private
+      namespace: envoy-gateway-system
+  hostnames:
+    - "qbittorrent.neffi.fr"
+  rules:
+    - backendRefs:
+        - name: qbittorrent
+          port: 8080
+      matches:
+        - path:
+            type: PathPrefix
+            value: /
+---
