@@ -9,6 +9,6 @@ helmCharts:
   - name: gitlab-agent
     repo: https://charts.gitlab.io
     releaseName: gitlab-agent
-    version: v2.24.1
+    version: 2.26.0
     namespace: maraude-restos
     valuesFile: ./values.yaml
