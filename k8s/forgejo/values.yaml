@@ -56,6 +56,8 @@ gitea:
       ENABLE_INTERNAL_SIGNIN: false
     lfs:
       STORAGE_TYPE: local
+    other:
+      SHOW_FOOTER_VERSION: false
 
   server:
     DOMAIN: "code.neffi.fr"
