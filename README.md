@@ -1,5 +1,7 @@
-# homelab
+# old-homelab
 
-This repository contains the configuration and infrastructure code for my personal **k3s homelab**.
+**This repository is deprecated and will eventually be destroyed.**
 
-It includes the core setup and supporting resources I use to run self-hosted workloads in a lightweight Kubernetes environment.
+This was my previous k3s homelab setup. For the latest version and active development, please visit: [https://codeberg.org/Neffi42/homelab](https://codeberg.org/Neffi42/homelab)
+
+This repository is kept for historical reference only.
